@@ -113,7 +113,7 @@ public class DataUtil {
                         new BoxArt(200, 200, "http://cdn-0.nflximg.com/images/2891/TheChamber200.jpg")
                 ),
                 "http://api.netflix.com/catalog/titles/movies/70111470",
-                4.0,
+                5.0,
                 new ArrayList<Bookmark>(),
                 ImmutableList.of(
                         new InterestingMoment("End", new Date()),

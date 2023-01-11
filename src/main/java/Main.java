@@ -1,8 +1,11 @@
 import katas.*;
+
 import static org.junit.Assert.*;
 
 public class Main {
     public static void main(String[] args) {
+
+
         assertEquals(Kata1.execute().size(), 4);
         System.out.println("Kata 1 solved!");
 
