@@ -2,10 +2,12 @@ package katas;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import model.BoxArt;
 import util.DataUtil;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /*
     Goal: Create a datastructure from the given data:
@@ -63,8 +65,24 @@ public class Kata11 {
         List<Map> boxArts = DataUtil.getBoxArts();
         List<Map> bookmarkList = DataUtil.getBookmarkList();
 
-        return ImmutableList.of(ImmutableMap.of("name", "someName", "videos", ImmutableList.of(
-                ImmutableMap.of("id", 5, "title", "The Chamber", "time", 123, "boxart", "someUrl")
-        )));
+        List<Map> dataStructure = lists.stream()
+                .map(x ->
+                        ImmutableMap.of("name", x.get("name"), "videos", videos.stream()
+                                .filter(v -> v.get("listId").equals(x.get("id")))
+                                .map(video -> ImmutableMap.of("id", video.get("id"), "title", video.get("title")
+                                        , "time", bookmarkList.stream()
+                                                .filter(f -> f.get("videoId").equals(video.get("id")))
+                                                .map(r -> r.get("time"))
+                                                .collect(Collectors.toUnmodifiableList()),
+                                        "boxart", boxArts.stream().reduce((a, b) -> {
+                                                    Map res = (((Integer) a.get("height") * (Integer) a.get("width")) <
+                                                            ((Integer) b.get("height") * (Integer) b.get("width"))) ? a : b;
+                                                    return res;
+                                                })
+                                                .map(map -> map.get("url"))
+                                )).collect(Collectors.toList())
+                        )).collect(Collectors.toList());
+        return dataStructure;
     }
 }
+
