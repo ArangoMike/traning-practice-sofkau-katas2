@@ -16,16 +16,15 @@ public class Kata6 {
     public static String execute() {
         List<Movie> movies = DataUtil.getMovies();
 
-
         String url = movies.stream()
                 .flatMap(x ->
                         x.getBoxarts().stream())
                 .reduce((a, b) -> {
                     BoxArt res = ((a.getHeight() * a.getWidth()) >= (b.getHeight() * b.getWidth())) ? a : b;
-                        return res;
+                    return res;
 
                 }).map(f -> f.getUrl())
-                        .get();
+                .get();
 
         System.out.println(url);
 
