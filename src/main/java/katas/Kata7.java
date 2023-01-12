@@ -32,7 +32,6 @@ public class Kata7 {
                         .map(boxArt -> boxArt.getUrl())))
                 .collect(Collectors.toList());
 
-        System.out.println(movieList2.toString());
 
         return movieList2;
     }
